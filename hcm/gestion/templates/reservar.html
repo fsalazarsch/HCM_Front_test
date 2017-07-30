@@ -1,0 +1,30 @@
+<div id="header" style="    width: auto;
+    
+    padding: 10px 40px;
+    background: #417690;
+    line-height: 40px;
+    color: #fff;
+    overflow: hidden;">
+<h1>Salas con la capacidad de reserva</h1>
+</div>
+
+{% if disp %}
+<table><tr>
+<tr><td>Nombre</td><td>Ubicacion</td><td>Capacidad</td><td>Insumos</td>
+{% for sala in disp %}
+<tr>
+<td>{{sala.nombre}}</td>
+<td>{{sala.ubicacion}}</td>
+<td>{{sala.capacidad}}</td>
+<td>{{sala.insumos}}</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<p>Lo sentimos no hay salas que cumplan los requisitos de su reserva</p>
+{% endif %}
+
+
+
+{{ mensaje | safe }}
+<br><a style="color:blue" href="/">Volver al inicio</a>

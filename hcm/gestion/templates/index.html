@@ -1,0 +1,24 @@
+<div id="header" style="    width: auto;
+    height: 40px;
+    padding: 10px 40px;
+    background: #417690;
+    line-height: 40px;
+    color: #ffc;
+    overflow: hidden;">
+</div>
+
+    <form class="form-horizontal" id="login-form" method="post" action="/reservar/">
+    {% csrf_token %}
+    Fecha:<br>{{ form.fecha }}
+    <br>
+    Hora inicio:<br>{{ form.hora_inicio }}
+    <br>
+    Hora termino:<br>{{ form.hora_termino }}
+    <br>
+    Personas:<br>{{ form.personas }}
+    <br>
+    Insumos:<br>{{ form.insumos }}
+    <br>
+    <input type="submit" value="Reservar" />
+    </form>
+                

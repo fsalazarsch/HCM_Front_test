@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Calendario de reservas</title>
+
+{% load staticfiles %}
+
+<link rel='stylesheet' href="{% static 'css/style.css' %}" type='text/css' media='all' />
+</head>
+
+<body>
+<div id="calendar" style="height:600px"></div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src = "{% static 'js/index.js' %}"></script>
+<script type="text/javascript">
+
+  var data = [
+  {% for h in horarios %}
+  { in: '{{ h.horario_id }}', eventName: 'Sala: {{h.sala_id}} ({{ h.inicio }} - {{ h.termino }})', calendar:  '{{h.estado_id}}', 
+  color: 
+  {% if h.estado_id.detalle == 'Confirmada' %}
+  'blue', 
+  {% elif h.estado_id.detalle == 'Reservada' %}
+  'orange',
+  {% elif h.estado_id.detalle == 'Disponible' %}
+  'green',
+  {% elif h.estado_id.detalle == 'No disponible' %}
+  'yellow',
+  {% else %}
+  '{{h.estado_id}}',
+  {% endif %}
+  date: '{{h.fecha.day}}'},
+  {% endfor %}
+
+  ];
+    var calendar = new Calendar('#calendar', data);
+
+  function eliminar(id){
+    if(confirm('Esta seguro que quiere borrar el horario?'))
+    $.ajax({
+    url: '/admin/eliminar/?id='+id,
+      success: function() {
+      alert('Servicio eliminado'),
+       location.reload();
+       }
+    }); 
+  }
+</script>
+<a style="color:white" href="/admin">Volver al inicio</a>
+</body>
+</html>
